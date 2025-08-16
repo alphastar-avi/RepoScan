@@ -31,8 +31,7 @@ Vulnerable Code:requires login
 
 - Java
 - Go
-- Others 
-
+- Others
 
 ## Usage (Python Version)
 
@@ -71,3 +70,19 @@ If the language is not specified, the tool will try to auto-detect it.
 ```bash
 ./reposcan https://github.com/some/vulnerable-go-project go
 ```
+
+## Web Interface
+
+Install the required dependencies:
+
+```bash
+pip install -r requirements.txt`
+```
+
+Then, run the Flask application:
+
+```bash
+python3 app.py
+```
+
+Access the web interface in your browser at `:8080/`.
