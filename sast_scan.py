@@ -96,4 +96,24 @@ if __name__ == '__main__':
     language = sys.argv[2] if len(sys.argv) == 3 else None
     
     results = scan_repo(repo_url, language)
-    print(json.dumps(results, indent=4))
+
+    if "error" in results:
+        print(f"Error: {results['error']}")
+        if "stdout" in results:
+            print(f"Semgrep Stdout: {results['stdout']}")
+        if "stderr" in results:
+            print(f"Semgrep Stderr: {results['stderr']}")
+        sys.exit(1)
+
+    print("\n--- SAST Vulnerability Report ---")
+    if not results["results"]:
+        print("No vulnerabilities found.")
+    else:
+        for result in results["results"]:
+            print(f"Path: {result['path']}:{result['start']['line']}")
+            print(f"Rule ID: {result['check_id']}")
+            print(f"Severity: {result['extra']['severity']}")
+            print(f"Message: {result['extra']['message']}")
+            print("Vulnerable Code:")
+            print(result['extra']['lines'])
+            print("---")
