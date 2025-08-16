@@ -5,3 +5,7 @@ __pycache__/
 *.pyc
 dev.md
 .DS_Store
+*.exe
+*.bin
+go.mod
+go.sum
