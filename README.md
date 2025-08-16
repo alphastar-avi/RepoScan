@@ -31,7 +31,7 @@ Vulnerable Code:requires login
 
 - Java
 - Go
--Others 
+- Others 
 
 
 ## Usage (Python Version)
