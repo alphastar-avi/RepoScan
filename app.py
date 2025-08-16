@@ -14,11 +14,18 @@ def run_sast_scan_and_format(repo_url, language=None):
         command.append(language)
 
     try:
+        # Capture stdout (which will be JSON) and stderr (informational messages)
         process = subprocess.run(command, capture_output=True, text=True, check=True)
         semgrep_output = json.loads(process.stdout)
 
         formatted_output = ""
-        if not semgrep_output.get("results"):
+        if "error" in semgrep_output:
+            formatted_output += f"Error: {semgrep_output['error']}\n"
+            if "stdout" in semgrep_output:
+                formatted_output += f"Semgrep Stdout: {semgrep_output['stdout']}\n"
+            if "stderr" in semgrep_output:
+                formatted_output += f"Semgrep Stderr: {semgrep_output['stderr']}\n"
+        elif not semgrep_output.get("results"):
             formatted_output = "No vulnerabilities found."
         else:
             for result in semgrep_output["results"]:
@@ -30,9 +37,11 @@ def run_sast_scan_and_format(repo_url, language=None):
                 formatted_output += "---\n"
         return formatted_output
     except subprocess.CalledProcessError as e:
-        return f"Error running SAST scan: {e.stderr}"
+        # This catches errors if sast_scan.py itself returns a non-zero exit code
+        return f"Error running SAST scan script: {e.stderr}"
     except json.JSONDecodeError:
-        return f"Error parsing SAST scan output: {process.stdout}"
+        # This catches errors if sast_scan.py's stdout is not valid JSON
+        return f"Error parsing SAST scan output (not valid JSON): {process.stdout}"
     except Exception as e:
         return f"An unexpected error occurred: {str(e)}"
 
