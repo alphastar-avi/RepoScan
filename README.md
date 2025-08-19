@@ -1,6 +1,6 @@
 # RepoScan
 
-A simple SAST scanner that uses `semgrep` to find security vulnerabilities in your code.
+A simple SAST scanner that uses `semgrep` to find security vulnerabilities in your code.(Owasp top 10)
 
 <img width="1348" height="1020" alt="Screenshot 2025-08-17 at 4 34 28 AM" src="https://github.com/user-attachments/assets/27ac535d-796b-405f-b464-14ac24e5a8fa" />
 
@@ -27,11 +27,11 @@ Vulnerable Code:requires login
 ---
 ```
 
-## Supported Languages
+## Supported rule-set for languages:
 
 - Java
 - Go
-- Others
+- can be added as need...
 
 ## Usage (Python Version)
 
