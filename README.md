@@ -31,7 +31,7 @@ Vulnerable Code:requires login
 
 - Java
 - Go
-- can be added as need...
+- Add rule-set as needed...
 
 ## Usage (Python Version)
 
